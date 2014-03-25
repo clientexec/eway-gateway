@@ -28,7 +28,7 @@ class PluginEway extends GatewayPlugin
                                        ),
                     /*T*/"eWay ID"/*/T*/ => array (
                                         "type"          =>"text",
-                                        "description"   =>/*T*/"ID used to identify you to eWay.<br>NOTE: This ID is required if you have selected eWay as a payment gateway for any of your clients."/*/T*/,
+                                        "description"   =>/*T*/"Please enter your eWay Customer ID here"/*/T*/,
                                         "value"         =>""
                                        ),
                     /*T*/"Accept CC Number"/*/T*/ => array (
