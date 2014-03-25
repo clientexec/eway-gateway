@@ -152,7 +152,7 @@ class PluginEway extends GatewayPlugin
             $requestUrl = "https://www.eway.com.au/gateway/xmlpayment.asp";
         }
 
-        $transmit_response = NE_Network::curlRequest($this->settings, $requestUrl, $xmlCart, false, true, false);
+        $transmit_response = NE_Network::curlRequest($this->settings, $requestUrl, $xmlCart, false, false, false);
 
         require_once 'library/CE/XmlFunctions.php';
 
@@ -171,11 +171,14 @@ class PluginEway extends GatewayPlugin
 
             if($xmlresponse['ewayResponse']['#']['ewayTrxnStatus'][0]['#'] == "True"){
                 $cPlugin->PaymentAccepted($params["invoiceTotal"], '('.$xmlresponse['ewayResponse']['#']['ewayTrxnError'][0]['#'].').', $xmlresponse['ewayResponse']['#']['ewayTrxnNumber'][0]['#']);
+
             }else{
                 $cPlugin->PaymentRejected($xmlresponse['ewayResponse']['#']['ewayTrxnError'][0]['#']);
+                return 'Payment rejected by credit card gateway provider';
             }
         }else{
             $cPlugin->PaymentRejected($this->user->lang("There was not response from eWay. Please double check your information"));
+            return 'Payment rejected by credit card gateway provider';
         }
     }
 
