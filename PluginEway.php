@@ -137,7 +137,7 @@ class PluginEway extends GatewayPlugin
         $xmlCart .= $this->CreateNode("ewayCustomerEmail", $params["userEmail"]);
         $xmlCart .= $this->CreateNode("ewayCustomerAddress", $params["userAddress"]);
         $xmlCart .= $this->CreateNode("ewayCustomerPostcode", $params["userZipcode"]);
-        $xmlCart .= $this->CreateNode("ewayCustomerInvoiceRef", "");
+        $xmlCart .= $this->CreateNode("ewayCustomerInvoiceRef", $params["invoiceNumber"]);
         $xmlCart .= $this->CreateNode("ewayOption1", "");
         $xmlCart .= $this->CreateNode("ewayOption2", "");
         $xmlCart .= $this->CreateNode("ewayOption3", "");
