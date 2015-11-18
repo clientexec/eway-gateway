@@ -154,9 +154,31 @@ class PluginEway extends GatewayPlugin
 
         $transmit_response = NE_Network::curlRequest($this->settings, $requestUrl, $xmlCart, false, false, false);
 
+        if(!$transmit_response){
+              $cPlugin->PaymentRejected($this->user->lang("There was not response from eWay. Please double check your information"));
+              return $this->user->lang("There was not response from eWay. Please double check your information");
+        }
+
+        if (is_a($transmit_response, 'CE_Error')){
+            $cPlugin->PaymentRejected($this->user->lang("There was an error performing this operation.")." ".$transmit_response->getMessage());
+            return $this->user->lang("There was an error performing this operation.")." ".$transmit_response->getMessage();
+        }
+
         require_once 'library/CE/XmlFunctions.php';
 
-        $xmlresponse = XmlFunctions::xmlize($transmit_response);
+        if ($transmit_response && !is_a($transmit_response, 'CE_Error')){
+            $xmlresponse = XmlFunctions::xmlize($transmit_response);
+        }
+
+        if(!$xmlresponse){
+              $cPlugin->PaymentRejected($this->user->lang("There was not response from eWay. Please double check your information"));
+              return $this->user->lang("There was not response from eWay. Please double check your information");
+        }
+
+        if (is_a($xmlresponse, 'CE_Error')){
+            $cPlugin->PaymentRejected($this->user->lang("There was an error performing this operation.")." ".$xmlresponse->getMessage());
+            return $this->user->lang("There was an error performing this operation.")." ".$xmlresponse->getMessage();
+        }
 
         require_once 'modules/billing/models/class.gateway.plugin.php';
         $cPlugin = new Plugin($params["invoiceNumber"], "eway", $this->user);
