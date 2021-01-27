@@ -63,7 +63,7 @@ class PluginEway extends GatewayPlugin
             ),
             lang("Invoice After Signup") => array(
                 "type"        => "yesno",
-                "description" => lang("Select YES if you want an invoice sent to the customer after signup is complete."),
+                "description" => lang("Select YES if you want an invoice sent to the client after signup is complete."),
                 "value"       => "1"
             ),
             lang("Signup Name") => array(
@@ -73,7 +73,7 @@ class PluginEway extends GatewayPlugin
             ),
             lang("Dummy Plugin") => array(
                 "type"        => "hidden",
-                "description" => lang("1 = Only used to specify a billing type for a customer. 0 = full fledged plugin requiring complete functions"),
+                "description" => lang("1 = Only used to specify a billing type for a client. 0 = full fledged plugin requiring complete functions"),
                 "value"       => "0"
             ),
             lang("Auto Payment") => array(
@@ -241,4 +241,3 @@ class PluginEway extends GatewayPlugin
         return $node;
     }
 }
-?>
